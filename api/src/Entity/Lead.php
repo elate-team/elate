@@ -2,10 +2,16 @@
 
 namespace Elate\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 /**
+ * @ApiResource(
+ *  itemOperations={"get"},
+ *  collectionOperations={"post", "get"}
+ * )
  * @ORM\Entity
  */
 class Lead
@@ -18,37 +24,37 @@ class Lead
     private $id;
 
     /**
-     * @ORM\Column(type="string", nullable=TRUE)
+     * @ORM\Column(type="string", nullable=true)
      * @var string|null
      */
-    private $email;
+    public $email;
 
     /**
-     * @ORM\Column(type="string", nullable=TRUE)
+     * @ORM\Column(type="string", nullable=true)
      * @var string|null
      */
-    private $phone;
+    public $phone;
 
 
-    public function __construct(UuidInterface $id)
+    public function __construct()
     {
-        $this->id = $id;
+        $this->id = Uuid::uuid4();
     }
 
 
-    public function id(): UuidInterface
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
 
 
-    public function email(): ?string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
 
-    public function phone(): ?string
+    public function getPhone(): ?string
     {
         return $this->phone;
     }
